@@ -1,0 +1,140 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load currency_filters %}
+{% load category_tags %}
+
+
+
+{% get_current_language as LANGUAGE_CODE %}
+{#{{ LANGUAGE_CODE }}#}
+
+
+<div class="util">
+
+    <!-- gnb -->
+    <div class="gnb_wrap">
+        <div class="util_area clfx">
+            <div class="util">
+
+                {# 카트 #}
+                {% block mini_basket %}
+                    <li><a href="{% url 'basket:summary' %}"><img src="{% static "kamper/mobile/images/icon_cart.png" %}" alt="{% trans "View basket" %}" /></a></li>
+                {% endblock %}
+                {% if user.is_authenticated %}
+                    <li>
+
+                        {% if num_unread_notifications > 0 %}
+                            If user has new notifications - we change account link to go to inbox
+                            <a href="{% url 'customer:notifications-inbox' %}">
+                                <i class="icon-user"></i>
+                                {% trans "Account" %}
+                                <span class="label label-important">{{ num_unread_notifications }}</span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'customer:summary' %}"><img src="{% static "kamper/mobile/images/icon_login.png" %}" alt="{% trans 'Account' %}" /></a></li>
+                        {% endif %}
+                    </li>
+
+                    {% if user.is_staff or perms.partner.dashboard_access %}
+                        <li class="nav-utils"><a href="{% url 'dashboard:index' %}"><i class="icon-list-ul"></i> {% trans "Dashboard" %}</a></li>
+                    {% endif %}
+                    <li class="nav-utils"><a id="logout_link" href="{% url 'customer:logout' %}"><i class="icon-signout"></i> {% trans "Logout" %}</a></li>
+
+                {% else %}
+                    <li class="nav-utils util_login"><a id="login_link" href="{% url 'customer:login' %}">{% trans "Login" %}</a></li>
+                    <li class="nav-utils"><a id="login_link" href="{% url 'customer:register' %}">{% trans "Register" %}</a></li>
+                {% endif %}
+
+
+            </div>
+
+            {% if LANGUAGES|length > 1 %}
+                <form id="language_selector" style="padding:0;" class="language navbar-left navbar-form" action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ language_neutral_url_path }}" />
+                    <div class="language_set">
+                        <select name="language" style="font-size:13px; height:17px; text-align:center; " class="clfx" onchange="javascript:submitLanguage()" >
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE%} selected="selected"{% endif %}>
+                                    {{ language.name_local }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {#                    <button class="btn btn-default" type="submit" data-loading-text="{% trans 'Submitting...' %}">{% trans "Go" %}</button>#}
+                </form>
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- gnb -->
+        <div >
+            <div class="gnb">
+                <ul class="clfx">
+                    <li><a href="{% url "custom:wireless_view" %}">{% trans "WIRELESS" %}</a></li>
+                    {% category_tree depth=2 as tree_categories %}
+
+                    {%  get_current_language  as lang %}
+                    {% for tree_category, info in tree_categories %}
+                        {% if lang == 'en' or  tree_category.is_chinese == null %}
+                            {% if info.has_children %}
+                                <li class="sgnb_show">
+                                <a href="{{ tree_category.get_absolute_url }}">
+                                    {% trans  tree_category.name  %}
+                                </a>
+                                <div class="s_gnb_wrap">
+                                <div class="s_gnb">
+                                <img src="{% static "kamper/images/gnb_arrow.png" %}" alt="" class="arrow" />
+                                <ul>
+                            {% else %}
+                                <li><a href="{{ tree_category.get_absolute_url }}">{% trans  tree_category.name  %}</a></li>
+                            {% endif %}
+                        {% for close in info.num_to_close %}
+                            </ul>
+                            </div>
+                            </div>
+                            </li>
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for tree_category, info in tree_categories %}
+
+                        {% if lang == 'zh-cn' and tree_category.is_chinese == 1 %}
+                            {% if info.has_children %}
+                                <li class="sgnb_show">
+                                <a href="{{ tree_category.get_absolute_url }}">
+                                    {% trans  tree_category.cn_name  %}
+                                </a>
+                                <div class="s_gnb_wrap">
+                                <div class="s_gnb">
+                                <img src="{% static "kamper/images/gnb_arrow.png" %}" alt="" class="arrow" />
+                                <ul>
+                            {% else %}
+                                <li><a href="{{ tree_category.get_absolute_url }}">{% trans  tree_category.cn_name  %}</a></li>
+                            {% endif %}
+                        {% for close in info.num_to_close %}
+                            </ul>
+                            </div>
+                            </div>
+                            </li>
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{% url "custom:delivery_view" %}">{% trans "DELIVERY" %}</a></li>
+
+
+
+                </ul>
+            </div>
+        </div>
+        <!-- //gnb -->
+
+    </div>
+    <!-- //gnb -->
+
+
+</div>

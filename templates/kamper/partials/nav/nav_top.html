@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!-- nav top -->
+<div class="header_wrap">
+    <div class="header_top clfx">
+        <div class="logo">
+            {% block brand_title %}
+                <a href="{{ homepage_url }}"><img src="{% static "kamper/images/logo.jpg" %}" alt="{{ shop_name }}" /></a>
+                <small> {{ shop_tagline }}</small>
+            {% endblock %}
+        </div>
+
+        {% include "partials/nav/nav_search.html" %}
+
+        {% include "partials/nav/nav_utils.html" %}
+
+
+    </div>
+
+    {% include "partials/nav/nav_category.html" %}
+
+
+    {#	<!-- gnb -->#}
+    {#	<div class="gnb_wrap">#}
+    {#		<div class="gnb">#}
+    {#			<ul class="clfx">#}
+    {#				<li>#}
+    {#					<a href="#">ALL-IN-ONE BOX</a>#}
+    {#				</li>#}
+    {#				<li>#}
+    {#					<a href="sub/phone_list.html">PHONE &amp; SIM CARDS</a>#}
+    {#				</li>#}
+    {#				<li class="sgnb_show">#}
+    {#					<a href="#">PRODUCTS</a>#}
+    {#					<div class="s_gnb_wrap">#}
+    {#						<div class="s_gnb">#}
+    {#							<img src="{% static "kamper/images/gnb_arrow.png" %}" alt="" class="arrow" />#}
+    {#							<ul>#}
+    {#								<li><a href="#">Bedding</a></li>#}
+    {#								<li><a href="sub/item_list.html">Towels</a></li>#}
+    {#							</ul>#}
+    {#						</div>#}
+    {#					</div>#}
+    {#				</li>#}
+    {#				<li>#}
+    {#					<a href="#">HOUSING</a>#}
+    {#				</li>#}
+    {#				<li>#}
+    {#					<a href="#">EVENTS &amp; TRAVEL </a>#}
+    {#				</li>#}
+    {#			</ul>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- //gnb -->#}
+</div>
+<!-- //nav top -->

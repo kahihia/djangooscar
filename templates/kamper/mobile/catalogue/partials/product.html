@@ -1,0 +1,42 @@
+{% load reviews_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% load display_tags %}
+{% load staticfiles %}
+
+{% comment %}
+윤수가 수정한당
+{% endcomment %}
+
+
+{% block product %}
+    <div class="product_pod">
+        {% block product_image %}
+            <div class="img_area">
+                {% with image=product.primary_image %}
+                    {% thumbnail image.original "x100" upscale=False as thumb %}
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="thumbnail"></a>
+                    {% endthumbnail %}
+                {% endwith %}
+            </div>
+        {% endblock %}
+
+        {% block product_title %}
+            <div class="txt_area">
+                <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}" class="title">
+                    <span>{{ product.get_title|truncatewords:8 }}</span>
+                </a>
+                {% block product_price %}
+                    <div class="price">
+                        {% include "catalogue/partials/stock_record.html" %}
+                        {#     대은 : 장바구니 넣는거 없앰           {% if not product.is_parent %}#}
+                        {#                    {% include "catalogue/partials/add_to_basket_form_compact.html" %}#}
+                        {#                {% endif %}#}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

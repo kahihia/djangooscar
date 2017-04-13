@@ -1,0 +1,38 @@
+.list-unstyled .well {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid;
+  background-color: #ede6fe;
+}
+.item_list .txt_area .title {
+  padding: 21px 0 8px;
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  font-family: "noto-light";
+  font-weight: 600;
+  height: 30px;
+}
+.item_list .txt_area .sub_price {
+  font-size: 15px;
+  color: #222222;
+  vertical-align: bottom;
+}
+.item_list .txt_area .sub_price strong {
+  font-size: 15px;
+}
+.item_list .txt_area .price {
+  width: 100%;
+  font-size: 8px;
+  display: block;
+  color: #ee7b44;
+}
+.view_top .txt_area .detail_price_box {
+  margin-bottom: 40px;
+}
+.view_top .txt_area .detail_price_box .price {
+  margin-bottom: 5px;
+}
+.checkout_price span {
+  float: right;
+}

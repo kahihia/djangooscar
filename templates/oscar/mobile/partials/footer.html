@@ -1,0 +1,30 @@
+{% load i18n %}
+<footer id="footer" class="container footer">
+    {% block footer %}
+        {% comment %}
+            Could be used for displaying links to privacy policy, terms of service, etc.
+            We have a CSS class defined:
+                <ul class="footer_links inline">
+                    ...
+                </ul>
+         {% endcomment %}
+        <div class="footer-box">
+            <ul class="footer-inline-links">
+                <li><a href="{% url "others:aboutusView" %}">ABOUT KAMPER</a></li>
+                <li><a href="{% url "others:memberView" %}">TEAM KAMPER</a></li>
+                <li><a href="{% url "others:contactusView" %}">CONTACT US</a></li>
+                <li><a href="{% url "others:useragreementView" %}">USER AGREEMENT</a></li>
+                <li><a href="{% url "others:privacypolicyView" %}">PRIVACY POLICY</a></li>
+            </ul>
+            <div class="footer-word">
+{#                <div>#}
+{#                    <p>  고객센터: 02-0000-0000   주소: 서울특별시 영등포구 양산로 193 남양빌딩</p>#}
+{#                    <p>사업자등록번호: 000-00-00000 통신판매번호: 제2016-서울동작-0000호 (주) 캠퍼코리아</p>#}
+{#                </div>#}
+                <div>
+                    <p>Copyright KamperKorea 2016~2018 All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</footer>

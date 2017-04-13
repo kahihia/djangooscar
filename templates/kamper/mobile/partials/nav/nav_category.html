@@ -1,0 +1,67 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+<!-- gnb -->
+<div class="gnb_wrap">
+    <div class="gnb">
+        <ul class="clfx">
+            {% category_tree depth=2 as tree_categories %}
+
+            {%  get_current_language  as lang %}
+            {% for tree_category, info in tree_categories %}
+                {% if lang == 'en' or  tree_category.is_chinese == null %}
+                    {% if info.has_children %}
+                        <li class="sgnb_show">
+                        <a href="{{ tree_category.get_absolute_url }}">
+                            {% trans  tree_category.name  %}
+                        </a>
+                        <div class="s_gnb_wrap">
+                        <div class="s_gnb">
+                        <img src="{% static "kamper/images/gnb_arrow.png" %}" alt="" class="arrow" />
+                        <ul>
+                    {% else %}
+                        <li><a href="{{ tree_category.get_absolute_url }}">{% trans  tree_category.name  %}</a></li>
+                    {% endif %}
+                {% for close in info.num_to_close %}
+                    </ul>
+                    </div>
+                    </div>
+                    </li>
+                {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            {% for tree_category, info in tree_categories %}
+
+                {% if lang == 'zh-cn' and tree_category.is_chinese == 1 %}
+                    {% if info.has_children %}
+                        <li class="sgnb_show">
+                        <a href="{{ tree_category.get_absolute_url }}">
+                            {% trans  tree_category.cn_name  %}
+                        </a>
+                        <div class="s_gnb_wrap">
+                        <div class="s_gnb">
+                        <img src="{% static "kamper/images/gnb_arrow.png" %}" alt="" class="arrow" />
+                        <ul>
+                    {% else %}
+                        <li><a href="{{ tree_category.get_absolute_url }}">{% trans  tree_category.cn_name  %}</a></li>
+                    {% endif %}
+                {% for close in info.num_to_close %}
+                    </ul>
+                    </div>
+                    </div>
+                    </li>
+                {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <li><a href="{% url "custom:delivery_view" %}">{% trans "DELIVERY" %}</a></li>
+
+
+
+        </ul>
+    </div>
+</div>
+<!-- //gnb -->

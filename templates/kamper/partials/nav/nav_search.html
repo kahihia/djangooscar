@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load staticfiles %}
+{% comment %}
+kamper 사용
+{% endcomment %}
+{#<div id="navbar-search">#}
+{#    <form class="navbar-form navbar-center" role="search" method="get" action="{% url 'search:search' %}">#}
+{#        <div class="navbar-left">#}
+{#            <div class="navbar-search-option">#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="navbar-right" style="margin-right: -15px;">#}
+{#            <input type="submit" value="{% trans "Search" %}" class="btn btn-default navbar-right-btn" />#}
+{#        </div>#}
+{#        <div class="navbar-form-center">#}
+{#            <div class="nav-search-field">#}
+{#                {{ search_form.q }}#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#    </form>#}
+{#</div>#}
+
+
+<!-- search -->
+<div class="top_search_wrap">
+    <div class="top_search">
+        <form role="search" method="get" action="{% url 'search:search' %}">
+            <fieldset>
+                <legend>검색폼</legend>
+                {{ search_form.q }}
+                <a href="#"><img src="{% static "kamper/images/btn_search.jpg" %}" alt="검색" /></a>
+                {# form input으로 변경 예정#}
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!-- //search -->

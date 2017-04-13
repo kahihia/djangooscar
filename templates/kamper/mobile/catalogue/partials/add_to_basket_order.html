@@ -1,0 +1,81 @@
+{% load basket_tags %}
+{% load display_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+
+{% purchase_info_for_product request product as session %}
+
+{% comment %}수정 요망..{% endcomment %}
+<div style="margin-bottom:12px;">
+{% if lang == 'en' %}
+
+    <ul class="info">
+
+        <li>Shipping : <strong>3000 won / Phone Recharge: No Shipping Cost(0 won)</strong></li>
+        <li>Ships to : Korea</li>
+        <li>Delivery : May take up to 7  working days</li>
+        <li>Payments : PayPal, Alipay, VISA</li>
+
+    </ul>
+{% elif lang == 'zh-cn' %}
+    <ul class="info">
+
+        <li>快递 : <strong>3000韩币</strong></li>
+        <li>运至 : 韩国</li>
+        <li>交换期间 : 最长可能需要7天</li>
+        <li>付款 : PayPal, Alipay, VISA</li>
+    </ul>
+
+{% endif %}
+</div>
+
+
+
+
+{% if session.availability.is_available_to_buy %}
+    {% basket_form request product 'multiple' as basket_form %}
+    <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post" class="add-to-basket">
+        <div id="order_action">
+            {% csrf_token %}
+
+            {% include "partials/form_fields.html" with form=basket_form %}
+            {#        <button type="submit" class="btn btn-primary btn-add-to-basket" value="{% trans "Add to basket" %}" data-loading-text="{% trans 'Adding...' %}">{% trans "Add to basket" %}</button>#}
+
+
+            <div class="btn_area">
+                <button class="basic-btn btn-orange f-l" value="{% trans "ADD TO CART" %}" data-loading-text="{% trans 'Adding...' %}">
+                    <span class="btn_cart"> {% trans "ADD TO CART" %}</span>
+                </button>
+                {#                <button type="button" onClick="javascript:submitOrder({{ product.pk }})" type="button" class="basic-btn btn-black f-r" value="{% trans "BUY IT NOW" %}" data-loading-text="{% trans 'Waiting...' %}">#}
+                {#                    {% trans "BUY IT NOW" %}#}
+                {#                </button>#}
+                <div class="" style="padding:15px; "> <span class="" style="text-align: center; font-weight: bolder">  &nbsp;&nbsp; &uarr;  {% trans  "Add to Cart First" %} ! </span></div>
+
+            </div>
+        </div>
+    </form>
+
+    {% comment %}wishlist 임시 제거{% endcomment %}
+    {#    {% iffeature "wishlists" %}#}
+    {#            {% include "catalogue/partials/add_to_wishlist.html" %}#}
+    {#    {% endiffeature %}#}
+
+
+    {% comment %}
+         kamper 추가 Order
+    {% endcomment %}
+{% else %}
+    {% if has_active_alert %}
+        <p>{% trans "You have an active stock alert for this product." %}</p>
+    {% else %}
+        <form id="alert_form" method="post" action="{% url 'customer:alert-create' pk=product.id %}" class="add-to-basket">
+            {% csrf_token %}
+            <p>{% trans "You can get an email alert when this product is back in stock." %}</p>
+            {% include "partials/form_fields.html" with form=alert_form %}
+            <button type="submit" class="btn btn-lg btn-info btn-add-to-basket" data-loading-text="{% trans 'Submitting...' %}">{% trans "Notify me" %}</button>
+        </form>
+    {% endif %}
+    {% iffeature "wishlists" %}
+        {% include "catalogue/partials/add_to_wishlist.html" %}
+    {% endiffeature %}
+{% endif %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load promotion_tags %}
+
+{% comment %}
+Kamper 사용
+{% endcomment %}
+
+{% block styles %}
+    {% comment %}
+        If you are developing Oscar's CSS, or overriding Oscar's CSS
+        files in your project, then set USE_LESS = True in your
+        settings file. This will enable the on-the-fly less compiler.
+    {% endcomment %}
+    {% if use_less %}
+        {#        <link rel="stylesheet/less" type="text/css" href="{% static "kamper/less/styles.less" %}" />#}
+        {#        <link rel="stylesheet" type="text/css" href="{% static "kamper/less/style2.less" %}" />#}
+        {#        <link rel="stylesheet" type="text/css" href="{% static "kamper/less/kamper_style.less" %}" />#}
+    {% else %}
+        <link rel="stylesheet" href="{% static "kamper/css/common.css" %}"/>
+        {#        <link rel="stylesheet" type="text/css" href="{% static "kamper/css/styles.css" %}" />#}
+        {#        <link rel="stylesheet" type="text/css" href="{% static "kamper/css/style2.css" %}" />#}
+        {#        <link rel="stylesheet" type="text/css" href="{% static "kamper/css/kamper_style.css" %}" />#}
+        <link rel="stylesheet" type="text/css" href="{% static "kamper/css/kamper_new.css" %}" />
+        {#        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}kamper/css/styles.css" />#}
+    {% endif %}
+    <link rel="stylesheet" href="{% static "kamper/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "kamper/css/datetimepicker.css" %}" />
+
+{% endblock %}
+
+{% block layout %}
+    <div id="wrap">
+        {# Top-horizontal bar with account, notifictions, dashboard links #}
+        {% include "partials/nav/nav_top.html" %}
+
+        {# Main content of page - other layout templates may override this block #}
+        {% block content_wrapper %}
+            <div class="container-fluid page">
+                <div class="page_inner">
+                    {% block breadcrumbs %}{% endblock %}
+
+                    {% block header %}
+                        {#                        <div class="page-header action">#}
+                        {#                            <h1>{% block headertext %}{% endblock %}</h1>#}
+                        {#                        </div>#}
+                    {% endblock %}
+
+
+
+                    {# 이걸 고쳐야 메시지가 안쪽에 뜰것 같음..... ㅋ_ㅋ  #}
+                    {% include "partials/alert_messages.html" %}
+
+                    {% block subnavigation %}{% endblock %}
+                    <div class="content">
+                        {% block subheader %}{% endblock subheader %}
+
+                        {# Render promotions #}
+                        <div id="promotions">
+                            {% for promotion in promotions_page %}
+                                {% render_promotion promotion %}
+                            {% endfor %}
+                        </div>
+
+                        {# Div exists for AJAX updates to entire content section #}
+                        <div id="content_inner">{% block content %}{% endblock %}</div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% include "partials/footer.html" %}
+    </div>
+{% endblock %}
+
+{% block cdn_scripts %}
+    {{ block.super }}
+    {% if use_less and debug %}
+        {# Load the on-the-fly less compiler. Never do this in production. #}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+    {% endif %}
+{% endblock %}
+
+{# Local scripts #}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "kamper/js/jquery-1.11.2.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "kamper/js/modernizr.custom.39786.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "kamper/js/response.js" %}" charset="utf-8"></script>
+
+{#    <script type="text/javascript" src="{% static "kamper/js/icheck.min.js" %}" charset="utf-8"></script>#}
+    <script type="text/javascript" src="{% static "kamper/js/common.js" %}" charset="utf-8"></script>
+
+
+    <!-- Twitter Bootstrap -->
+    {#    <script type="text/javascript" src="{% static "kamper/js/jquery/jquery-1.9.1.min.js" %}"></script>#}
+    <script type="text/javascript" src="{% static "kamper/js/bootstrap3/bootstrap.min.js" %}"></script>
+    <!-- Oscar -->
+    <script src="{% static "kamper/js/oscar/ui.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "kamper/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "kamper/js/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.all.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "kamper/js/holder.js" %}"></script>
+
+    {#    google maps#}
+    <script>
+        function initMap() {
+            var myLatLng = {lat: 37.522943, lng: 126.904613};
+
+            // Create a map object and specify the DOM element for display.
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                center: myLatLng,
+                scrollwheel: false,
+                zoom: 15
+            });
+
+            // Create a marker and set its position.
+            var marker = new google.maps.Marker({
+                map: map,
+                position: myLatLng,
+            });
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWw9x_hDLR9hNC8p0WJn9HQeQJqBJSzms&callback=initMap" async defer></script>
+
+    <script src="{% static "kamper/js/google_maps.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "kamper/js/kamper.js" %}" type="text/javascript" charset="utf-8"></script>
+
+
+{% endblock %}
+
+{% block extrascripts %}
+    {% include "partials/extrascripts.html" %}
+    {{ block.super }}
+{% endblock %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.init();
+{% endblock %}

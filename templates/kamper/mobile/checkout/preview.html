@@ -1,0 +1,75 @@
+{% extends "checkout/checkout_layout2.html" %}
+{% load i18n %}
+{% load thumbnail %}
+{% load currency_filters %}
+{% load purchase_info_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+    {% trans "Order preview" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {#    {% include 'checkout/nav.html' with step=4 %}#}
+{% endblock %}
+
+{% block checkout_title %}
+    {% trans "Preview order" %}
+{% endblock %}
+
+{% block place_order %}
+
+    {# 페이팔#}
+    <div >
+
+        {% if  payment_detail_method == 'Paypal' %}
+
+            <script>
+                window.paypalCheckoutReady = function() {
+                    paypal.checkout.setup('AXSR36EU4ARSN', {
+                        environment: 'sandbox',
+                        container: 'myContainer'
+                    });
+                };
+            </script>
+            <form style="text-align:center; margin-top: -40px; margin-bottom:60px;" id="myContainer" method="post" action="{% url "checkout:paypal-approve" %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="PaypalCheckout">
+
+
+                <a href="{{request.META.HTTP_REFERER}}"><button  type="button"  class="btn btn-default btn-lg ">Previous</button></a>
+                {#                <button style="width:35%" id='place-order' type="submit" class="btn btn-primary btn-lg" data-loading-text="{% trans 'Submitting...' %}">{% trans "Place order" %}</button>#}
+
+
+
+            </form>
+
+            <script src="//www.paypalobjects.com/api/checkout.js" async></script>
+
+        {% elif payment_detail_method == 'Alipay' %}
+
+
+            <form method="post" action="{% url 'checkout:preview' %}" id="place_order_form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="place_order" />
+
+                <div style="display:none">
+                    {% block hiddenforms %}{% endblock %}
+                </div>
+
+                <div class="" style=" width :1024px; text-align: center; margin-top:0px; margin-left:480px;">
+                    <a href="{{request.META.HTTP_REFERER}}"><button style="width:10%" type="button"  class="btn btn-default btn-lg ">Previous</button></a>
+                    <button style="width:35%" id='place-order' type="submit" class="btn btn-primary btn-lg" data-loading-text="{% trans 'Submitting...' %}">{% trans "Place order" %}</button>
+
+
+                </div>
+
+                {#   <div class="btn_area clfx">#}
+                {#				<a href="#" class="basic-btn btn-gray f-l">PREV</a>#}
+                {#				<a href="checkout_3.html" class="basic-btn btn-black f-r">NEXT</a>#}
+                {#			</div>#}
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock place_order %}

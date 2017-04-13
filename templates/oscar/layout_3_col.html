@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% load promotion_tags %}
+
+{% comment %}
+Keep the same header and footer as the standard layout template but override the
+main content area to split it into a sidebar and a content block
+사용처: catalogue표시
+
+Usage: catalogue/browse.html
+Usage: search/results.html
+{% endcomment %}
+{% block content_wrapper %}
+    <div class="container-fluid page">
+        <div class="search-result-info-bar">
+            <!--검색 결과-->
+            {% block search_result %}
+            {% endblock%}
+        </div>
+        <div class="kamper-page-inner">
+
+            <div class="section-fixed-box">
+                <div class="section-fixed-left">
+                    <aside class="sidebar">
+                        {# Render promotions at the top of the left-hand sidebar #}
+                        <div id="promotions_left">
+                            {% for promotion in promotions_left %}
+                                {% render_promotion promotion %}
+                            {% endfor %}
+                        </div>
+                        {% block column_left %}{% endblock %}
+                    </aside>
+                </div>
+
+                <div class="section-fixed-right">
+                    {% block breadcrumbs %}{% endblock %}
+                    <div class="prod-box">
+                        <div>
+                            {% block header %}
+                                <div class="page-header action">
+                                    <h1>{% block headertext %}{% endblock %}</h1>
+                                </div>
+                            {% endblock %}
+
+                            {% include "partials/alert_messages.html" %}
+
+                            <div id="promotions">
+                                {% for promotion in promotions_page %}
+                                    {% render_promotion promotion %}
+                                {% endfor %}
+                            </div>
+
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!-- /container-fluid -->
+{% endblock %}

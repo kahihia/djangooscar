@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Register' %} | {{ block.super }}
+{% endblock %}
+
+{#{% block header %}#}
+{#    {% trans "Register" %}#}
+{#{% endblock %}#}
+
+{% block headertext %}
+    {#    {% trans "Register" %}#}
+{% endblock %}
+
+{% block content %}
+
+    <!-- sub_container -->
+    <div class="sub_bg">
+        <div class="sub_container">
+            <!-- login -->
+            <div class="login" style="">
+                <h1>{% trans "Register" %}</h1>
+                <form id="register_form" action="." method="post" class="form-stacked">
+                    {% csrf_token %}
+                    {% include "partials/form_fields.html"  %}
+                    <div class="txt_c">
+                        {# <a href="#" class="basic-btn btn-orange">REGISTER</a>#}
+                        <button type="submit" value="Register" class="basic-btn btn-orange" data-loading-text="{%trans 'Registering...' %}">{% trans 'Register' %}</button>
+
+                    </div>
+{#                    {% if cancel_url %}#}
+{#                        {% trans "or" %} <a href="{{ cancel_url }}">{% trans "cancel" %}</a>.#}
+{#                    {% endif %}#}
+
+                </form>
+
+            </div>
+            <!-- //login -->
+        </div>
+    </div>
+    <!-- //sub_container -->
+
+
+{% endblock content %}
+
+

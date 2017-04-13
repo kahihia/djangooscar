@@ -1,0 +1,80 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load i18n %}
+
+{#<ul id="browse" class="nav navbar-nav">#}
+{#    <li class="dropdown active {% if expand_dropdown %}open{% endif %}">#}
+{#        <a href="#" class="dropdown-toggle" {% if not expand_dropdown %} data-toggle="dropdown"{% endif %}>#}
+{#            {% trans "Browse store" %}#}
+{#            <b class="caret"></b>#}
+{#        </a>#}
+{#        <ul class="dropdown-menu" data-navigation="dropdown-menu">#}
+{#            {% category_tree depth=2 as tree_categories %}#}
+{#            <li><a tabindex="-1" href="{% url 'catalogue:index' %}">{% trans "All products" %}</a></li>#}
+{#            {% if tree_categories %}#}
+{#                <li class="divider"></li>#}
+{#                {% for tree_category, info in tree_categories %}#}
+{#                    {% if info.has_children %}#}
+{#                        <li class="dropdown-submenu">#}
+{#                        <a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>#}
+{#                        <ul class="dropdown-menu">#}
+{#                    {% else %}#}
+{#                        <li><a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>#}
+{#                    {% endif %}#}
+{##}
+{#                  {% for close in info.num_to_close %}#}
+{#                       </ul></li>#}
+{#                  {% endfor %}#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#            <li class="divider"></li>#}
+{#            {% block nav_dropdown_extra_items %}#}
+{#                <li><a href="{% url 'offer:list' %}">{% trans "Offers" %}</a></li>#}
+{#            {% endblock %}#}
+{#        </ul>#}
+{#    </li>#}
+{#    {% block nav_extra %}#}
+{#    {% endblock %}#}
+{#</ul>#}
+
+{# 대은 = 카테고리 새로 만들어 본것 #}
+{#                <ul class="nav navbar-nav">#}
+{#                  <li><a href="#">ALL-IN-ONE BOX</a></li>#}
+{#                  <li><a href="#">PHONE & SIM CARDS</a></li>#}
+{#                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PRODUCTS<span class="caret"></span></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="#">Bedsheets</a></li>#}
+{#                      <li><a href="#">Pillows</a></li>#}
+{#                      <li><a href="#">Blankets</a></li>#}
+{#                      <li><a href="#">Towels</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+{#                  <li><a href="#">HOUSING</a></li>#}
+{#                  <li><a href="#">EVENTS & TRAVEL</a></li>#}
+{#                </ul>#}
+
+
+
+<ul class="nav navbar-nav">
+
+    {% category_tree depth=2 as tree_categories %}
+    {% for tree_category, info in tree_categories %}
+        {% if info.has_children %}
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="{{ tree_category.get_absolute_url }}">
+                    {{ tree_category.name }}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+
+        {% else %}
+            <li><a href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>
+        {% endif %}
+    {% for close in info.num_to_close %}
+        </ul></li>
+    {% endfor %}
+    {% endfor %}
+
+
+</ul>

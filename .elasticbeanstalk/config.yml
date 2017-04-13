@@ -1,0 +1,15 @@
+branch-defaults:
+  Develop:
+    environment: kamper-env
+  Production:
+    environment: kamper-env
+  master:
+    environment: kamper-env
+    group_suffix: null
+global:
+  application_name: kamper-project
+  default_ec2_keyname: KamperKorea
+  default_platform: Python 3.4
+  default_region: ap-northeast-2
+  profile: eb-cli
+  sc: git

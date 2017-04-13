@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Register' %} | {{ block.super }}
+{% endblock %}
+
+{#{% block header %}#}
+{#    {% trans "Register" %}#}
+{#{% endblock %}#}
+
+{% block headertext %}
+    {#    {% trans "Register" %}#}
+{% endblock %}
+
+{% block content %}
+    <!-- sub_container -->
+    <div class="sub_bg">
+        <div class="sub_container">
+            <!-- login -->
+            <div class="login" style="">
+                <h1>{% trans "Login" %}</h1>
+                <form id="login_form" action="{{ request.get_full_path }}" method="post" class="form-stacked well">
+                    {% csrf_token %}
+                    {% include "partials/form_fields.html" with form=login_form  %}
+                    <div class="keep_txt clfx">
+                        <div class="check_area check_wrap"><input type="checkbox" id="sign_keep" value="True" /><label for="sign_keep">{% trans 'Keep me signed in' %}</label></div>
+                        <div class="register"><a href="{% url 'customer:register' %}">{% trans 'Register' %}</a></div>
+                    </div>
+
+                    <p class="forget_txt"><a  href="{% url 'password-reset' %}">{% trans "Forgot your password?" %}</a></p>
+
+                    <div class="btn_area">
+                        <button type="submit" name="login_submit" value="Login" class="basic-btn btn-orange f-l" data-loading-text="{%trans 'Logging in...' %}">{% trans 'Login' %}</button>
+                        <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="basic-btn btn-black f-r">
+                            <span class="btn-facebook">LOGIN with FACEBOOK</span>
+                        </a>
+                    </div>
+                </form>
+
+
+            </div>
+            <!-- //login -->
+        </div>
+    </div>
+    <!-- //sub_container -->
+
+
+
+{% endblock content %}

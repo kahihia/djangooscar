@@ -1,0 +1,257 @@
+{% extends "layout.html" %}
+{% load currency_filters %}
+{% load thumbnail %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load staticfiles %}
+{% load trans_currency %}
+
+{% block title %}
+    {% trans "Checkout" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {% include 'checkout/nav.html' %}
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <!-- navi -->
+            <div class="navi clfx">
+                <ul class="clfx">
+                    <li class="icon_home"><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+                    <li class="active">{% trans 'order' %}</li>
+                </ul>
+            </div>
+
+            <!-- preview -->
+            <div class="preview">
+                <div class="checkout_step">
+                    <ol class="clfx">
+                        <li>
+                            <span>01</span>
+                            Shipping Adress
+                        </li>
+                        <li>
+                            <span>02</span>
+                            Payment Detail
+                        </li>
+                        <li class="on">
+                            <span>03</span>
+                            Preview
+                        </li>
+                        <li>
+                            <span>04</span>
+                            Confirmation
+                        </li>
+                    </ol>
+                </div>
+
+
+
+                <div class="clfx">
+                    <div>
+                        <h2 class="">{% trans "Preview" %}</h2>
+
+                        <h4>{% trans "Items placed in order" %}</h4>
+                        <div class="cart_tb">
+                            <table>
+                                <colgroup>
+                                    <col style="width:55px;" />
+                                    <col />
+                                    <col style="width:45px;" />
+                                    <col style="width:65px;" />
+                                </colgroup>
+                                <tbody>
+
+                                {% for line in basket.all_lines %}
+                                    {% purchase_info_for_line request line as session %}
+                                    <tr>
+                                        <td class="img_area">
+                                            {% with image=line.product.primary_image %}
+                                                {% thumbnail image.original "100x100" upscale=False as thumb %}
+                                                    <a href="{{ form.instance.product.get_absolute_url }}"><img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}"></a>
+                                                {% endthumbnail %}
+                                            {% endwith %}
+                                        </td>
+                                        <td class="txt_l" ><h5><a href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></h5></td>
+                                        <td style="text-align: center"> {{ line.quantity }}</td>
+                                        <td class="price"> {% if not show_tax_separately and line.is_tax_known %}
+                                            {{ line.line_price_incl_tax|currency:basket.currency }}
+
+                                            ({% trans_usd_currency line.line_price_incl_tax %})
+                                        {% else %}
+                                            {{ line.line_price_excl_tax|currency:basket.currency }}
+
+                                            ({% trans_usd_currency line.line_price_excl_tax %})
+
+                                        {% endif %}
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        {% block shipping_address %}
+                            {% if shipping_address %}
+                                <h4>{% trans "Shipping Information" %}</h4>
+                                <div class="preview_cont">
+                                    {% block shipping_address_actions %}
+
+                                        <div class="preview_txt">
+                                            <address style="width:100%;">
+                                                <div>
+                                                    {% for field in shipping_address.active_address_fields %}
+                                                        <br/>{{ field }}
+                                                    {% endfor %}
+                                                </div>
+                                            </address>
+
+                                            {% if shipping_address.phone_number %}
+                                                <br/>{% trans "Phone : " %}{{ shipping_address.phone_number }}
+                                            {% endif %}
+
+                                            {% if guest_email %}
+                                                <br/>{% trans "E-mail : " %} {{ guest_email }}
+                                            {% endif %}
+
+
+                                            {% if shipping_address.notes %}
+                                                <br/>{% trans "Note : " %}{{ shipping_address.notes }}
+                                            {% endif %}
+                                            <a href="{% url 'checkout:shipping-address' %}" class="pull-right">
+                                                <span style="color:blue; float:right;"> {% trans "Change" %}</span>
+                                            </a>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+
+
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block payment_method %}
+                            <h4>{% trans "Credit Card Detail" %}</h4>
+                            <div class="preview_cont">
+                                {# alipay인지 paypal인지 확인 #}
+                                <div class="payment_method_preview" style="padding-top:20px;">
+                                    <span class="payment_method_text" style="font-size:20px;">{{ payment_detail_method }}</span>
+                                </div>
+                                <a href="{% url 'checkout:payment-details' %}" class="pull-right">
+                                    <span style="color:blue; float:right;">   {% trans "Change" %} </span>
+                                </a>
+                            </div>
+
+                        {% endblock payment_method %}
+                    </div>
+
+                    <div>
+                        {% block total %}
+                            <h4>{% trans "Totals" %}</h4>
+                            <div class="preview_tb total_area">
+                                <div class="total_tb">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:45%;" />
+                                            <col style="width:10%;" />
+                                            <col style="width:45%;" />
+                                        </colgroup>
+                                        <thead>
+
+                                        <tr>
+                                            <th scope="col">{% trans "PRODUCT" %}</th>
+                                            <th scope="col">{% trans "Quantity" %}</th>
+                                            <th scope="col">{% trans "Price/Each" %}</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <td scope="row">{% trans "Shipping Charge" %}</td>
+                                            <td></td>
+                                            <td  class="total_price checkout_price">
+                                            <span>{{ shipping_charge.incl_tax|currency:basket.currency }}
+                                                ( {% trans_usd_currency shipping_charge.incl_tax %} )
+                                            </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">{% trans "Total" %} </th>
+                                            <td></td>
+
+                                            <td class="total_price checkout_price">   {% if order_total.is_tax_known %}
+                                                <span>
+                                                {{ order_total.incl_tax|currency:basket.currency }} ( {% trans_usd_currency order_total.incl_tax %} )
+                                            </span>
+
+                                            {% else %}
+                                                {{ order_total.excl_tax|currency:basket.currency }} ( {% trans_usd_currency order_total.excl_tax %} )
+                                            {% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                {% block order_contents_actions %}
+                                                    <a href="{% url 'basket:summary' %}" >
+                                                        <span style="color: blue;"> {% trans "Edit order contents" %}</span>
+                                                    </a>
+                                                {% endblock %}
+                                            </td>
+                                        </tr>
+
+                                        <td></td>
+                                        </tfoot>
+                                        <tbody>
+
+                                        {% for line in basket.all_lines %}
+                                            {% purchase_info_for_line request line as session %}
+                                            <tr>
+                                                <td><a href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></td>
+                                                <td>{{ line.quantity }}</td>
+                                                <td class="price checkout_price">
+                                            <span>
+                                                {% if not show_tax_separately and line.is_tax_known %}
+                                                    {{ line.line_price_incl_tax|currency:basket.currency }}
+                                                    ( {% trans_usd_currency line.line_price_incl_tax %} )
+                                                {% else %}
+                                                    {{ line.line_price_excl_tax|currency:basket.currency }}
+                                                    ( {% trans_usd_currency line.line_price_incl_tax %} )
+
+                                                {% endif %}
+                                            </span>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block shipping_method %}
+    {% endblock shipping_method %}
+
+    {% block payment_details %}
+    {% endblock payment_details %}
+
+    {% block place_order %}
+    {% endblock place_order %}
+
+{% endblock content %}
+

@@ -1,0 +1,20 @@
+{
+  "name": "static",
+  "authors": [
+    "Genus <jackok12@naver.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pickadate": "^3.5.6"
+  }
+}

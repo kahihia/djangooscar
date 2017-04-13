@@ -1,0 +1,82 @@
+{% load thumbnail %}
+{% load i18n %}
+{% load staticfiles %}
+{% comment %}
+윤수 수정..
+{% endcomment %}
+
+
+{% with all_images=product.images.all %}
+    {# use length rather then count as the images get queried anyways #}
+
+    <!-- rolling -->
+    <div class="view_rolling">
+        <div id="product_gallery" class="carousel slide">
+
+            <div class="view_rolling_li">
+                <ul class="clfx">
+                    {% for image in all_images %}
+                        <li>
+                            {% thumbnail image.original "350x350" upscale=False crop="center" as thumb %}
+                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="rolling_img"  />
+                            {% endthumbnail %}
+
+                            <img src="{% static "kamper/mobile/images/item_img_bg.png" %}" alt="" class="bg" />
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="view_rolling_arrow">
+                <a href="#" class="view_rolling_prev"><img src="{% static "kamper/mobile/images/view_prev.png" %}" alt="prev" /></a>
+                <a href="#" class="view_rolling_next"><img src="{% static "kamper/mobile/images/view_next.png" %}" alt="next" /></a>
+            </div>
+            <div class="view_paging"></div>
+        </div>
+    </div>
+    <!-- //rolling -->
+
+{#    {% if all_images|length > 1 %}#}
+{#        <div id="product_gallery" class="carousel slide">#}
+{#            <div class="big_img">#}
+{#                {% thumbnail all_images.first.original "450x450" upscale=False crop="center" as thumb %}#}
+{#                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}" />#}
+{#                {% endthumbnail %}#}
+{#            </div>#}
+{##}
+{#            <div class="thumbnail">#}
+{#                <ul class="clfx carousel-indicators thumbnail">#}
+{#                    {% for image in all_images %}#}
+{#                        <li data-target="#product_gallery" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}">#}
+                            {#                            <img src="{{ image.original.url }}" alt="">#}
+{##}
+{#                            {% thumbnail image.original "450x450" crop="center" as thumb %}#}
+{#                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" />#}
+{#                            {% endthumbnail %}#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#    {% else %}#}
+        {# Only one image to show #}
+{#        <div id="product_gallery" class="carousel">#}
+{#            <div class="big_img"><img src="{{ all_images.first.original.url }}" alt="" /></div>#}
+{##}
+{#            <div class="thumbnail">#}
+{#                <div class="carousel-inner">#}
+{#                    <div class="item active">#}
+{#                        {% with image=product.primary_image %}#}
+{#                            {% thumbnail image.original "450x450" crop="center" upscale=False as thumb %}#}
+{#                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" />#}
+{#                            {% endthumbnail %}#}
+{#                        {% endwith %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#    {% endif %}#}
+
+{% endwith %}

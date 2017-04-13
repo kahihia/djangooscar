@@ -1,0 +1,45 @@
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+<!-- footer -->
+<div class="footer clfx">
+    <div class="left_area">
+        <div class="footer_logo"><img src="{% static "kamper/images/footer_logo.jpg" %}" alt="KAMPER" /></div>
+        <address>서울특별시 영등포구 양산로 193 205호<br />Address: KAMPER KOREA, Namyoung B/D #205 Yeongdungpo-gu, Seoul, Republic of Korea </address>
+        <p>사업자등록번호 : 270-88-00529</p>
+        <div>
+            <span>TEL . +82 02 2068 0177</span>
+            <span>FAX . +82 02 2068 0178</span>
+            <span>E-MAIL . KAMPER@KAMPER.CO.KR</span>
+        </div>
+        <p>WECHAT ID : KAMPER_KR  /  KAKAO ID : kamperkorea</p>
+        <ul class="menu clfx">
+            <li><a href="{% url "others:aboutusView" %}">ABOUT KAMPER</a></li>
+            <li><a href="{% url "others:memberView" %}">TEAM KAMPER</a></li>
+            {#			<li><a href="{% url "others:contactusView" %}">CONTACT US</a></li>#}
+            <li><a href="{% url "others:useragreementKRView" %}">USER AGREEMENT</a></li>
+            <li><a href="{% url "others:privacypolicyKRView" %}">PRIVACY POLICY</a></li>
+        </ul>
+        <p class="copyright">COPYRIGHT Ⓒ KAMPERKOREA 2016~2018 ALL RIGHTS RESERVED</p>
+    </div>
+    <div class="right_area">
+        <p class="tag">#kamperkorea</p>
+        <div class="sns">
+            <ul class="clfx">
+                <li><a  href="#"><img src="{% static "kamper/images/icon_sns_1.jpg" %}" alt="mail" /></a></li>
+                <li><a target="_blank" href="https://www.facebook.com/kamper.co.kr/"><img src="{% static "kamper/images/icon_sns_2.jpg" %}" alt="facebook" /></a></li>
+                <li><a target="_blank" href="https://www.instagram.com/official_kamper/"><img src="{% static "kamper/images/icon_sns_3.jpg" %}" alt="Instagram" /></a></li>
+            </ul>
+        </div>
+
+        <div class="payment-method">
+            <div>
+                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-small.png" alt="PayPal Logo">
+            </div>
+        </div>
+        <div class="top"><a href="#top">TOP</a></div>
+    </div>
+    <!-- //footer -->
+</div>

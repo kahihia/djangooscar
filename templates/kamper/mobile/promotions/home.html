@@ -1,0 +1,66 @@
+{#{% extends "layout_2_col.html" %}#}
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{# Kamper 현재 사용 안함 #}
+{% block navigation %}
+    {#    {% include "partials/nav_primary.html" with expand_dropdown=1 %}#}
+{% endblock %}
+
+{% block main_banner %}
+    <div id="kamper-main_banner">
+        <a href="">
+            <img class="main-banner-img" src="{% static "kamper/img/temp_banner.jpg" %}" alt="">
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+
+{% block column_left %}
+{% endblock %}
+
+
+{% block content %}
+    <!-- main_visual -->
+    <div class="main_visual">
+        <div class="main_vs_img"><img src="{% static "kamper/mobile/images/main_visual.jpg" %}" alt="" /></div>
+        <div class="main_vs_txt">
+            <div class="txt_1"><img src="{% static "kamper/mobile/images/main_visual_txt.png" %}" alt="Just what you need when you Land in Korea" /></div>
+            <a  href="{% url 'catalogue:category' category_slug='wireless' pk=1 %}"> <button style="margin-bottom:20px; " type="button" class="btn-lg btn-primary btn-kamper">
+                {% trans 'Shop Now' %}
+            </button></a>
+            <div class="txt_3"><img src="{% static "kamper/mobile/images/main_visual_img.png" %}" alt="" /></div>
+        </div>
+    </div>
+    <!-- //main_visual -->
+
+    <!-- main_container -->
+    <div class="main_container">
+
+        <div>
+            <a href="{% url 'catalogue:category' category_slug='the_essentials' pk=2 %}">
+                <img src="{% static "kamper/mobile/images/mian_img_1.jpg" %}" alt="" class="bg" />
+                <span class="main_txt"><img src="{% static "kamper/mobile/images/main_txt_1.png" %}" alt="BEDDINGS Choose your beddings style" /></span>
+            </a>
+        </div>
+        <div>
+            <a href="{% url 'catalogue:category' category_slug='wireless' pk=1 %}">
+                <img src="{% static "kamper/mobile/images/mian_img_2.jpg" %}" alt="" class="bg" />
+                <span class="main_txt"><img src="{% static "kamper/mobile/images/main_txt_2.png" %}" alt="PHONE &amp; SIMS WIFI isn't everywhere" /></span>
+            </a>
+        </div>
+        <div>
+            <a href="{% url 'catalogue:category' category_slug='the_essentials' pk=2  %}">
+                <img src="{% static "kamper/mobile/images/mian_img_3.jpg" %}" alt="" class="bg" />
+                <span class="main_txt"><img src="{% static "kamper/mobile/images/main_txt_3.png"%}" alt="TOWELS I know Korean Towels are too small for you " /></span>
+            </a>
+        </div>
+    </div>
+
+{% endblock content %}

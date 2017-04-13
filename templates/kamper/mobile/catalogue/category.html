@@ -1,0 +1,78 @@
+{% extends "catalogue/browse.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{# category_banner: 카테고리 상단의 있는 이미지 #}
+{# 카테고리에 저장된 이미지를 가져온다. #}
+{# 카테고리에 저장된 디스크립터를 적는다. #}
+{% block category_banner %}
+{#<div class="sub_visual sub_visual_1">#}
+{#			<div class="sub_vs_txt"><img src="../images/sub_visual_txt2.png" alt="PHONE &amp; SIMS WIFI isn't eveywhere" /></div>#}
+{#		</div>#}
+    <!-- sub_visual -->
+    {% if category.image %}
+        {% get_current_language as lang %}
+        <div class="sub_visual_wrap">
+            <div class="sub_visual_img">
+                <div class="col-sm-3"><img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-responsive" /></div>
+            </div>
+            <div class="sub_visual_txt">
+                {# <img src="{% static "kamper/images/sub_vs_txt2.png" %}" alt="PHONE &amp; SIMCARDS WIFI isn't eveywhere" />#}
+                {% if lang == 'en' %}
+                    <span style="font-size:50pt; color: white;">{{ category.name }}</span>
+                {% elif lang == 'zh-cn' %}
+                    <span style="font-size:50pt; color: white;">{{ category.cn_name }}</span>
+                {% endif %}
+                {% if category.description %}
+                    <span>{{ category.description|safe }}</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- sub visual -->
+
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="navi">
+        <ul class="clfx">
+            <li><span class="icon_home"><a href="{{ homepage_url }}"> {% trans "Home" %}</a></span></li>
+            {%  get_current_language as lang %}
+
+
+            {% for category in category.get_ancestors %}
+                <li>
+                    {% if lang == 'en' or category.is_chinese == null %}
+                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                    {% elif lang == 'zh-cn' and category.is_chinese == 1 %}
+                        <a href="{{ category.get_absolute_url }}">{{ category.cn_name }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+            {% if lang == 'en' or category.is_chinese == null %}
+                <li class="active">{{ category.name }}</li>
+            {% elif lang == 'zh-cn' and category.is_chinese == 1 %}
+                <li class="active">{{ category.cn_name }}</li>
+            {% endif %}
+        </ul>
+    </div>
+
+{% endblock breadcrumbs %}
+
+
+{% block title %}
+    {{ category.name }} | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+    {{ category.description|default:""|striptags }}
+{% endblock %}
+
+{% block headertext %}{{ category.name }}{% endblock %}
+
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}

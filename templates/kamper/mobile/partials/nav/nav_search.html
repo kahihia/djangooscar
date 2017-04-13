@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load staticfiles %}
+{% comment %}
+kamper 사용
+{% endcomment %}
+
+{#<!-- search -->#}
+{#<div class="top_search_wrap">#}
+{#    <form action="#" method="post">#}
+{#        <fieldset>#}
+{#            <legend>검색폼</legend>#}
+{#            <div class="top_search">#}
+{#                <input type="text" title="검색어입력" />#}
+{#                <a href="#"><img src="images/btn_search.jpg" alt="검색" /></a>#}
+{#            </div>#}
+{#        </fieldset>#}
+{#    </form>#}
+{#</div>#}
+{#<!-- //search -->#}
+{##}
+
+
+<!-- search -->
+<div class="top_search_wrap">
+    <div class="top_search">
+        <form role="search" method="get" action="{% url 'search:search' %}">
+            <fieldset>
+                <legend>검색폼</legend>
+                {{ search_form.q }}
+                <a href="#"><img src="{% static "kamper/images/btn_search.jpg" %}" alt="검색" /></a>
+                {# form input으로 변경 예정#}
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!-- //search -->

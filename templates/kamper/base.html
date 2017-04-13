@@ -1,0 +1,111 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% comment %}
+Kamper 사용
+{% endcomment %}
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js"> <!--<![endif]-->
+
+
+<head>
+    {#    {{ flavour }}#}
+    <title>{% if display_version %}[{% trans "Build" %} {{ version }}] {% endif %}{% block title %}{{ shop_name }} | 캠퍼코리아 - {{ shop_tagline }} {% endblock %}</title>
+    <meta name="naver-site-verification" content="cd8d2f4d7edef1bfcd016180078061947a128009"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="created" content="{% now "jS M Y h:i" %}" />
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <meta name="viewport" content="{% block viewport %}width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0{% endblock %}" />
+    <meta name="robots" content="NOARCHIVE,NOCACHE" />
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    {% block favicon %}
+        <link rel="shortcut icon" href="{% static "kamper/img/favicon.ico" %}" type="image/x-icon">
+        <link rel="icon" href="{% static "kamper/img/favicon.ico" %}" type="image/x-icon">
+    {% endblock %}
+
+    {# Block where global CSS will go. #}
+    {% block styles %}{% endblock %}
+
+    {# Additional CSS - specific to certain pages #}
+    {% block extrastyles %}{% endblock %}
+
+    {% block extrahead %}{% endblock %}
+
+    {% block tracking %}
+        {# Default to using Google analytics #}
+        {% include "partials/google_analytics.html" %}
+    {% endblock %}
+
+
+
+</head>
+
+<body id="{% block body_id %}{# default #}{% endblock %}" class="{% block body_class %}{# default #}{% endblock %}">
+{# Main content goes in this 'layout' block #}
+{% block layout %}{% endblock %}
+
+{# Scripts loaded from a CDN. #}
+{% block cdn_scripts %}
+    <!-- jQuery -->
+    {#    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+    {#    <script>window.jQuery || docusnt.write('<script src="{% static "oscar/js/jquery/jquery-1.9.1.min.js" %}"><\/script>')</script>#}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWw9x_hDLR9hNC8p0WJn9HQeQJqBJSzms"></script>
+{% endblock %}
+
+{# Local scripts #}
+{% block scripts %}
+{% endblock %}
+
+{# Additional JS scripts #}
+{% block extrascripts %}{% endblock %}
+
+{# Block for body onload functions #}
+<script type="text/javascript">
+    $(function() {
+        {% block onbodyload %}{% endblock %}
+    });
+</script>
+
+{# Page meta-data - this is populated by the 'metadata' template context processor #}
+<!-- {% trans "Version:" %} {{ version }} -->
+
+
+
+
+{#대은 : 페북 로그인 추가#}
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '585610984955777',
+            xfbml      : true,
+            version    : 'v2.7'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script type="text/javascript">
+    chat();
+</script>
+
+</body>
+</html>

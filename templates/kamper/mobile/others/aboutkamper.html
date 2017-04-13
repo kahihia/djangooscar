@@ -1,0 +1,67 @@
+{#{% extends "layout_2_col.html" %}#}
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+{% block content %}
+
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <div class="footer_privacypolicy" style="padding-top:50px; text-align: center; margin: auto">
+                <div id="us_description">
+                    <h1 style="color:#f26522">How it all began..</h1>
+                    <img src="{% static "kamper/images/together.jpg" %}" alt="" style="width:100% " />
+
+                    <p id="ourdescription" style="font-size: 12pt; margin-top: 40px; te">
+                        KAMPER KOREA was founded in 2016 with a single mission in mind:<br/>
+                        <span style="font-size:16pt; font-family:'noto-bold';">TO HELP INTERNATIONAL STUDENTS and EXPATS IN KOREA</span><Br/>
+                        <Br/>
+
+                        Living abroad is difficult.<Br/>
+                        Our team want to help and give support to those who are having troubles in Korea. <br/>
+                        We provide the essentials to settle in Korea , as well as other <br/>
+                        necessities like sim-cards and housing.<br/>
+                        We are also working on travelling and meet ups<br/>
+                        so you can enjoy Korea just like the locals.<Br/>
+                        <br/><br/>
+                        Our final goal is to be<br/>
+                        <span style="font-size:16pt; font-family:'noto-bold';"> "The ultimate solution for your stays in Korea"</span>
+
+
+                    </p>
+
+                    </p>
+                </div>
+
+
+                <div id="mapnlocation" style="margin-top:50px;">
+
+
+                    <h1 style="color:#f26522">Contact Us</h1>
+
+
+
+                    <div class='map' id="map-canvas" style="width: 100%; height: 400px; text-align: center; margin:auto; border:1px solid #ccd0d2 "></div>
+
+                    <br/>
+                    <p style="text-align: center; margin: auto">
+                        서울특별시 영등포구 양산로 193 205호<br/>
+                        Yangsanro 193, Namyoung B/D #205 Yeongdungpo-gu <br/>
+                        Seoul, Republic of Korea<br/>
+                    <p>사업자등록번호 : 270-88-00529</p>
+                    <div>
+                        <span>TEL . +82 02 2068 0177 / FAX . +82 02 2068 0178</span>
+                    </div>
+                    <p><span>E-MAIL . KAMPER@KAMPER.CO.KR</span></p>
+                    <p>WECHAT ID : KAMPER_KR  /  KAKAO ID : kamperkorea</p>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

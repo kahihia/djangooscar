@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load staticfiles %}
+
+
+<!-- header -->
+<div class="header_wrap">
+    <div class="header clfx">
+        <div class="logo">
+            {% block brand_title %}
+                <a href="{{ homepage_url }}"><img src="{% static "kamper/images/logo.jpg" %}" alt="{{ shop_name }}" /></a>
+                <small> {{ shop_tagline }}</small>
+            {% endblock %}
+        </div>
+
+
+        {% include "partials/nav/nav_search.html" %}
+        <div class="gnb_open"><a href="#"><img src="{% static "kamper/mobile/images/btn_menu.jpg" %}" alt="menu" /></a></div>
+
+        {% include "partials/nav/nav_utils.html" %}
+
+
+
+
+
+    </div>
+    <div class="gnb_bg"></div>
+</div>
+<!-- //header -->
+
+

@@ -1,0 +1,156 @@
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+{% block title %}
+    {% trans "Checkout" %} | {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <!-- navi -->
+            <div class="navi clfx">
+                <ul class="clfx">
+                    <li class="icon_home"><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+                    <li class="active">{% trans 'Delivery' %}</li>
+                </ul>
+            </div>
+
+            {% block delivery_form %}
+                <div class="delivery_wrap">
+                    <div class="delivery_img" style="width:inherit; margin-bottom: 20px;">
+
+                        <img src="{% static "kamper/delivery/Slide01.png" %}" alt="">
+                        <img src="{% static "kamper/delivery/Slide02.png" %}" alt="">
+
+                        <div class="slide3" style="background-color:#F79646; overflow:hidden; padding-left:10px; padding-right:10px; margin-left:3.5px;">
+                            <div class="slide_tab" >
+                                <div class="left" style="float:left; background-color:#E46C0A; width:49.5%; height:40px; ">
+                                    <p style="padding-top:12px; padding-bottom:2px; text-align:center; font-size:17px; font-weight: bold;">
+                                        1. Select your menu!
+                                    </p>
+                                </div>
+                                <div class="right" style="float:right; background-color: #FCD5B5; width:49.5%; height:40px;">
+                                    <p style="padding-top:12px; padding-bottom:2px; text-align:center; font-size:17px; font-weight: bold;">
+                                        Send a message
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="margin-top:70px; margin-bottom:30px;">
+                                <h5 style="color:#fff; font-size:20px; font-weight: bold;"> <span style="color:black">&diams;</span> Choose the menu from the links here</h5>
+                                <div class="delivery_brands_logo" style=" box-shadow: 0 0 5px gray inset, 0 0 10px black;background-color: #FDEADA;margin-top:15px; height:80%; border:2.7px dashed black; padding:7px 10px 50px 10px;">
+                                    <ul style="width:100%;">
+                                        <li style="display:inline-block; vertical-align: top; width:24%; text-align: center;">
+                                            <a href="#target_mr_pizza" class="scroll">
+                                                <span style="text-align: center; font-size:10px; font-weight:bold;">Click here</span>
+                                                <img  src="{% static "kamper/delivery_resource/mr_pizza.png" %}" alt="MR Pizza">
+
+                                            </a>
+                                        </li>
+                                        <li style="display:inline-block; vertical-align: top; width:24%; text-align: center;">
+                                            <a href="#target_pizza_alvolo" class="scroll">
+                                                <span style="  text-align: center; font-size:10px; font-weight:bold;">Click here</span>
+                                                <img src="{% static "kamper/delivery_resource/pizza_alvolo.png" %}" alt="PIZZA ALVOLO">
+
+                                            </a>
+                                        </li>
+                                        <li style="display:inline-block; vertical-align: top; width:24%; text-align: center;">
+                                            <a href="#target_kyochon" class="scroll">
+                                                <span style="text-align: center; font-size:10px; font-weight:bold;">Click here</span>
+                                                <img src="{% static "kamper/delivery_resource/kyochon.png" %}" alt="KYOCHON">
+
+                                            </a>
+                                        </li>
+                                        <li style="display:inline-block; vertical-align: top; width:24%; text-align: center;">
+                                            <a href="#target_nene" class="scroll">
+                                                <span style="text-align: center; font-size:10px; font-weight:bold;">Click here</span>
+                                                <img  src="{% static "kamper/delivery_resource/nene_chicken.png" %}" alt="NENE Chicken">
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div style="background-color:#f5f5f5; padding-top:5px; width:100%; margin:auto; margin-bottom:20px;">
+                                <h5 style="text-decoration: underline; font-size:10px; font-weight: bold; margin-bottom:20px;"> &diams; Refer to websites for menu in detail.</h5>
+                                <ul style="padding-top:20px;">
+                                    <li>
+                                        <img style="width:40px;" src="{% static "kamper/delivery_resource/mr_pizza.png" %}" alt="MR Pizza">
+                                        <a style="text-decoration: underline; color:blue; font-size:8px" href="http://usmpk.mrpizza.co.kr/en">http://usmpk.mrpizza.co.kr/en</a>
+                                    </li>
+                                    <li>
+                                        <img style="width:40px;" src="{% static "kamper/delivery_resource/pizza_alvolo.png" %}" alt="PIZZA ALVOLO">
+                                        <a style="text-decoration: underline; color:blue; font-size:8px;" href="https://pizzaalvolo.co.kr">https://pizzaalvolo.co.kr</a>
+                                    </li>
+                                    <li>
+                                        <img style="width:40px;" src="{% static "kamper/delivery_resource/kyochon.png" %}" alt="KYOCHON">
+                                        <a style="text-decoration: underline; color:blue; font-size:8px" href="http:/www.kyochon.com/menu/chicken.asp">http:/www.kyochon.com/menu/chicken.asp</a>
+                                    </li>
+                                    <li>
+                                        <img style="width:40px;" src="{% static "kamper/delivery_resource/nene_chicken.png" %}" alt="NENE Chicken">
+
+                                        <a style="text-decoration: underline; color:blue; font-size:5px; float:right;" href="http://english.nenechicken.com/Products_01.html">http://english.nenechicken.com/Products_01.html</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div style="float:right; margin-bottom:10px;">
+                                <img style="width:100px;" src="{% static 'kamper/delivery_resource/kamper_logo.png' %}" alt="KAMPER">
+                            </div>
+                        </div>
+
+                        <div id="target_mr_pizza">
+                            <img src="{% static "kamper/delivery/Slide04.png" %}" alt="">
+                        </div>
+                        <img src="{% static "kamper/delivery/Slide05.png" %}" alt="">
+                        <div id="target_pizza_alvolo">
+                            <img src="{% static "kamper/delivery/Slide06.png" %}" alt="">
+                        </div>
+                        <div id="target_kyochon">
+                            <img src="{% static "kamper/delivery/Slide07.png" %}" alt="">
+                        </div>
+
+                        <div id="target_nene">
+                            <img src="{% static "kamper/delivery/Slide08.png" %}" alt="">
+                        </div>
+                        <img src="{% static "kamper/delivery/Slide09.png" %}" alt="">
+                        <img src="{% static "kamper/delivery/Slide10.png" %}" alt="">
+                        <img src="{% static "kamper/delivery/Slide11.png" %}" alt="">
+                        <img src="{% static "kamper/delivery/Slide12.png" %}" alt="">
+                        <img src="{% static "kamper/delivery/Slide13.png" %}" alt="">
+                    </div>
+                </div>
+            {% endblock delivery_form %}
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script>
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+            });
+        });
+    </script>
+
+{% endblock %}
+
+

@@ -1,0 +1,44 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% comment %}
+Kamper 사용
+{% endcomment %}
+
+<header>
+    <nav class="navbar navbar-default kamper-nav">
+        <div id="nav-top">
+            <div class="navbar-header navbar-left" id="navbar-logo">
+                {% block brand_title %}
+                    <a class="navbar-brand" href="{{ homepage_url }}"><img src="{% static "kamper/img/1_Primary_logo_on_transparent_332x75.png" %}" alt="{{ shop_name }}"></a>
+                    <small> {{ shop_tagline }}</small>
+                {% endblock %}
+            </div>
+
+            {# 대은 서치박스 옆 배너 지우고 버튼추가 #}
+            <div class="navbar-right nav-banner">
+{#                <img src="holder.js/320x35" alt="">#}
+                  <div class="navbar-right">
+                     {% include "partials/nav_account.html" %}
+                  </div>
+            </div>
+
+            <div class=" navbar-center">
+                {% include "partials/search.html" %}
+            </div>
+        </div>
+        <div id="nav-middle">
+{#            <div class="navbar-left">#}
+{#                {% include "partials/nav_category.html" %}#}
+{#            </div>#}
+
+            {# 대은 = 카테고리 새로 만들어 본것 #}
+            <div class="container-fluid" id="nav-category">
+               {% include "partials/nav/nav_category.html" %}
+            </div>
+
+        </div>
+
+
+    </nav>
+</header>

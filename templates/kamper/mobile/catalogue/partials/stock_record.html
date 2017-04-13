@@ -1,0 +1,42 @@
+{% load currency_filters %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load trans_currency %}
+{% purchase_info_for_product request product as session %}
+
+{% comment %}
+윤수 수정
+{%endcomment%}
+
+
+{#수정된 것#}
+
+{#가격 부분#}
+{% if session.price.exists %}
+    {% if session.price.excl_tax == 0 %}
+        <p class="price_color">{% trans "Free" %}</p>
+    {% elif session.price.is_tax_known %}
+        <div class="detail_price_box">
+            <span class="price"><strong>{{ session.price.incl_tax | currency:session.price.currency}}</strong></span>
+            <span class="sub_price"><strong>USD: </strong> {% trans_usd_currency session.price.incl_tax %}, <strong>RMB: </strong> {% trans_rmb_currency session.price.incl_tax %}</span>
+        </div>
+        {#        <p class="price_color">{{ session.price.incl_tax|currency:session.price.currency }}</p>#}
+    {% else %}
+        <span class="price"><strong>{{ session.price.excl_tax | currency:session.price.currency}}</strong></span>
+    {% endif %}
+{% else %}
+    <p class="price_color">&nbsp;</p>
+{% endif %}
+
+
+
+
+{#재고 표시 부분#}
+{#<p class="{{ session.availability.code }} availability">#}
+{#    <i class="icon-{% if session.availability.is_available_to_buy %}ok{% else %}remove{% endif %}"></i>#}
+{#    {% if verbose %}#}
+{#        {{ session.availability.message }}#}
+{#    {% else %}#}
+{#        {{ session.availability.short_message }}#}
+{#    {% endif %}#}
+{#</p>#}

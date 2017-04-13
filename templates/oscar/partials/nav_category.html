@@ -1,0 +1,33 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load i18n %}
+
+
+
+<ul class="nav navbar-nav">
+
+    {% get_current_language as LANGUAGE_CODE %}
+    {{ LANGUAGE_CODE }}
+
+    {% category_tree depth=2 as tree_categories %}
+    {% for tree_category, info in tree_categories %}
+        {% if info.has_children %}
+            <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ tree_category.get_absolute_url }}">
+                {% trans  tree_category.name  %}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+
+
+        {% else %}
+            <li><a href="{{ tree_category.get_absolute_url }}">{% trans  tree_category.name  %}</a></li>
+        {% endif %}
+    {% for close in info.num_to_close %}
+        </ul></li>
+    {% endfor %}
+
+    {% endfor %}
+
+
+</ul>

@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+{% block title %}
+    {% trans "Checkout" %} | {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <!-- navi -->
+            <div class="navi clfx">
+                <ul class="clfx">
+                    <li><span class="icon_home"><a href="{{ homepage_url }}">{% trans 'Home' %}</a></span></li>
+                    <li class="active">{% trans 'WIRELESS' %}</li>
+                </ul>
+            </div>
+
+            {% block wireless_form %}
+
+                <div class="wireless_wrap">
+                    <div class="wireless_img" style="width:inherit; margin-bottom: 20px;">
+                        <img style="width:100%; " src="{% static "kamper/img/reservation_simcard.png" %}" alt="">
+
+                        <div class="accordion">
+                            <div class="accordion-section">
+                                <div style="width:100%;">
+                                    <a class="accordion-section-title" href="#accordion-1">>more Detail</a>
+                                </div>
+                                <div id="accordion-1" class="accordion-section-content">
+                                    <p>One and only big promotion in Korea prepaid.</p>
+                                    <p>     ------------------------------------------------------★KAMPER</p>
+                                    <p>     ★ If you top-up 10,000, free 10,000 KRW recharge in next month.</p>
+                                    <p>     1. Your number is durable for 2 months</p>
+                                    <p>     2. You can have DATA : 732MB, CALLS : 2hr 6min, TEXTS : 681</p>
+                                    <p></p>
+                                    <p>     ****In case you use the amount for 60 days</p>
+                                    <p>     ****can be applied when you use all of your amount in one sphere.</p>
+                                    <p>     ****first month's amount can be smaller than above information</p>
+                                    <p></p>
+                                    <p>     ★MARKET PRICE(10,000)</p>
+                                    <p>     S●● give you 200MB, 25min, 227text</p>
+                                    <p>     K● give you 224MB, 21min, 227text</p>
+                                    <p>     ------------------------------------------------------★ If you top-up 20,000, free 20,000 KRW recharge in next month.</p>
+                                    <p>     1. Your number is durable for 4 months</p>
+                                    <p>     2. You can have DATA : 1.44GB, CALLS : 4hr 12min, TEXTS : 1,363</p>
+                                    <p></p>
+                                    <p>     ****In case you use the amount for 60 days</p>
+                                    <p>     ****can be applied when you use all of your</p>
+                                    <p>     amount in one sphere.</p>
+                                    <p>     ****first month's amount can be smaller than</p>
+                                    <p>     above information.</p>
+                                    <p></p>
+                                    <p>     ★MARKET PRICE(20,000)</p>
+                                    <p>     S●● give you 50  0MB, 50min, 454text</p>
+                                    <p>     K● give you 488MB, 42min, 454text</p>
+                                    <p>     ------------------------------------------------------★</p>
+                                    <p>     If you top-up 30,000, free 30,000 KRW recharge</p>
+                                    <p>     in next month.</p>
+                                    <p>     1. Your number is durable for 6 months</p>
+                                    <p>     2. You can have DATA : 2.14GB, CALLS : 6hr 18min, TEXTS : 2,045</p>
+                                    <p></p>
+                                    <p>     ****In case you use the amount for 60 days</p>
+                                    <p>     ****can be applied when you use all of your amount in one sphere.</p>
+                                    <p>     ****first month's amount can be smaller than above information.</p>
+                                    <p></p>
+                                    <p>     ★MARKET PRICE(30,000)</p>
+                                    <p>     S●● give you 1GB, 1hr15min, 681text</p>
+                                    <p>     K● give you 732MB, 1hr4min, 681text</p>
+                                    <p>     --------------------------------------------------------------------------------------</p>
+                                    <p></p>
+                                    <p>     Only KAMPER can make this price :)</p>
+                                    <p>     Hurry and get free recharges.</p>
+                                </div><!--end .accordion-section-content-->
+                            </div><!--end .accordion-section-->
+                        </div><!--end .accordion-->
+
+                    </div>
+
+                    <div class="wireless_form">
+                        <h2 style="font-size:25px; font-weight:700;">Reservation</h2>
+                        <p style="color:darkgray; margin-bottom:30px;">※ Before you complete this form, <br>First, please register for our service</p>
+                        <form action="" method="post">
+                            {% csrf_token %}
+
+
+                            {% include "custom/partials/form_fields.html" with form=form  %}
+                            <button  type="submit" name="wireless_submit" value="WireLess" class="basic-btn btn-orange f-l" >{% trans 'Submit' %}</button>
+                        </form>
+                    </div>
+                </div>
+
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block styles %}
+    {{ block.super }}
+    {#    <link rel="stylesheet" href="{% static 'bower_components/pickadate/css/base.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'bower_components/pickadate/css/base.date.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'bower_components/pickadate/css/base.time.css' %}">#}
+    <link rel="stylesheet" href="{% static 'bower_components/pickadate/lib/themes/classic.css' %}">
+    <link rel="stylesheet" href="{% static 'bower_components/pickadate/lib/themes/classic.date.css' %}">
+    <link rel="stylesheet" href="{% static 'bower_components/pickadate/lib/themes/classic.time.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'bower_components/pickadate/lib/picker.js' %}"></script>
+    <script src="{% static 'bower_components/pickadate/lib/picker.date.js' %}"></script>
+    <script src="{% static 'bower_components/pickadate/lib/picker.time.js' %}"></script>
+
+    <script type="text/javascript">
+        $('.datepicker').pickadate({
+            labelMonthNext: 'Go to the next month',
+            labelMonthPrev: 'Go to the previous month',
+            labelMonthSelect: 'Pick a month from the dropdown',
+            labelYearSelect: 'Pick a year from the dropdown',
+            selectMonths: true,
+            selectYears: true,
+            formatSubmit: 'yyyy-mm-dd',
+            format: 'yyyy-mm-dd',
+            selectYears: 2,
+            min: new Date({{ today_year }},{{ today_month }}-1,{{ today_day }}),
+            {#            onSet: function(context) {#}
+            {#                $.ajax({#}
+            {#                    url: "127.0.0.1:8000/wireless/datecheck",#}
+            {#                    type: "post",#}
+            {#                    data: 'dds',#}
+            {#                    cache: 'false',#}
+            {#                    dataType: "json",#}
+            {#                    async: 'true',#}
+            {##}
+            {#                    success: function (data) {#}
+            {#                        alert(data);#}
+            {#                    },#}
+            {#                    error: function (data) {#}
+            {#                        alert("error in getting from server");#}
+            {#                    },#}
+            {#                });#}
+            {#                console.log('Just set stuff:', context);#}
+            {#            }#}
+        });
+        $('.timepicker').pickatime({
+            formatSummit: 'HH:i',
+            format: 'HH:i',
+            min: [10,0],
+            max: [18,0]
+        });
+
+    </script>
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function() {
+            function close_accordion_section() {
+                $('.accordion .accordion-section-title').removeClass('active');
+                $('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+            }
+
+            $('.accordion-section-title').click(function(e) {
+                // Grab current anchor value
+                var currentAttrValue = $(this).attr('href');
+
+                if($(e.target).is('.active')) {
+                    close_accordion_section();
+                }else {
+                    close_accordion_section();
+
+                    // Add active class to section title
+                    $(this).addClass('active');
+                    // Open up the hidden content panel
+                    $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+                }
+
+                e.preventDefault();
+            });
+        });
+    </script>
+{% endblock %}

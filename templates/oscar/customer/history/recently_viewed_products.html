@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load product_tags %}
+
+{#대은 : 최근 본 상품 4개로 줄임#}
+{% with products_sliced=products|slice:":4" %}
+    {% if products_sliced %}
+        <div class="sub-header">
+            <h2>{% trans 'Products you recently viewed' %}</h2>
+        </div>
+
+        <ul class="row">
+            {% for product in products_sliced %}
+
+
+{#     이랗게 있었는데 밑에 같이 바꿈 <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">{% render_product product %}</li> #}
+            <li class="col-xs-3">{% render_product product %}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}

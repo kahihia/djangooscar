@@ -1,0 +1,35 @@
+{#{% extends "layout_2_col.html" %}#}
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+{% block content %}
+
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <div class="footer_privacypolicy" style="padding-top:100px; padding-left: 50px; padding-right: 50px;">
+                <div style="display: block">
+                    <section id="main-member-box">
+                    <h1 style="text-align: center; margin:auto"> Introducing Our Team</h1>
+                        <ul class="member-list ">
+                            <li class="us"><img src="{% static "kamper/images/final_james.jpg" %}"></li>
+                            <li class="us"><img src="{% static "kamper/images/final_yoon.jpg" %}"></li>
+                            <li class="us"><img src="{% static "kamper/images/final_jae.jpg" %}" alt=""></li>
+                            <li class="us"><img src="{% static "kamper/images/final_lak.jpg" %}" alt=""></li>
+                            <li class="us"><img src="{% static "kamper/images/final_crystal.jpg" %}" alt=""></li>
+                            <li class="us"><img src="{% static "kamper/images/final_paige.jpg" %}" alt=""></li>
+                            <li class="us"><img src="{% static "kamper/images/final_tommy.jpg" %}" alt=""></li>
+                            <li class="us"><img src="{% static "kamper/images/final_qq.jpg" %}" alt=""></li>
+                        </ul>
+                    </section>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

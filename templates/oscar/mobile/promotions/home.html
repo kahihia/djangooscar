@@ -1,0 +1,40 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{# Kamper 현재 사용 안함 #}
+{% block navigation %}
+    {#    {% include "partials/nav_primary.html" with expand_dropdown=1 %}#}
+{% endblock %}
+
+{% block main_banner %}
+    <div id="kamper-main_banner">
+        <a href="">
+            <img class="main-banner-img" src="{% static "kamper/img/temp_banner.jpg" %}" alt="">
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+
+{% block column_left %}
+{% endblock %}
+
+
+
+{% block content %}
+    <section id="main-prod-box">
+        <ul class="prod-list">
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+            <li class="col-xs-4 prod"><a href=""><img src="holder.js/400x200?random=yes&auto=yes" alt=""></a></li>
+        </ul>
+    </section>
+{% endblock content %}

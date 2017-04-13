@@ -1,0 +1,69 @@
+{#{% extends "layout_2_col.html" %}#}
+{% extends "layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+
+
+{% block content %}
+
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <div class="footer_privacypolicy" style="padding-top:100px; padding-left: 50px; padding-right: 50px; text-align: center; margin: auto">
+                <div id="us_description">
+                    <h1 style="color:#f26522">How it all began..</h1>
+                    <img src="{% static "kamper/images/together.jpg" %}" alt="" style="width:800px " />
+
+                    <p id="ourdescription" style="font-size: 12pt; margin-top: 40px;">
+
+                        “Looking for a place to stay?”<br/>
+                        “You have no clue where to buy things?"<br/>
+                        “Curious where the locals hang out?”<Br/>
+                        “No idea how to buy a sim card?”<Br/>
+
+                        <br>
+                        KAMPER KOREA was founded in 2016 with a single mission in mind:<br/>
+                        <span style="font-size:16pt; font-family:'noto-bold';">TO HELP INTERNATIONAL STUDENTS and EXPATS IN KOREA</span><Br/>
+                        <Br/>
+
+                        We are here to help you with almost everything you need to settle in Korea.<Br/>
+                        Living abroad is difficult. We know the difficulties as most of our team members have lived abroad in countries like<Br/>
+                        America, China, Australia, Indonesia, Philippines, Canada and Guam..<Br/>
+                        With experiences living abroad, KAMPER is here to help international students and expats..<Br/>
+                        We provide the essentials to settle in Korea, as well as other necessities like sim-cards and housing..<Br/>
+                        We are also working on travelling and meet ups so you can enjoy Korea just like the locals..<Br/>
+                        <br/><br/>
+                        Our final goal is to be<br/>
+                        <span style="font-size:16pt; font-family:'noto-bold';"> "The ultimate solution for your stays in Korea"</span>
+
+
+                    </p>
+
+                </div>
+
+
+                <div id="mapnlocation" style=" margin-top:70px ;">
+
+
+                    <h1 style="color:#f26522">Contact Us</h1>
+
+
+
+                    <div class='map' id="map-canvas" style="width: 80%; height: 400px; text-align: center; margin:auto; border:1px solid #ccd0d2 "></div>
+
+                    <br/>
+                    <p style="text-align: center; margin: auto;">
+                        서울특별시 영등포구 양산로 193 205호<br/>
+                        193, Yangsan-ro, #205, Yeongdeungpo-gu, Seoul, Korea<br/>
+                        Seoul, Republic of Korea<br/>
+                        +82 02 2068 0177<br/>
+                        customerservice@kamper.co.kr
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

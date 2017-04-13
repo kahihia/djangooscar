@@ -1,0 +1,253 @@
+{% extends "checkout/checkout.html" %}
+{% load currency_filters %}
+{% load thumbnail %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}
+    {% blocktrans with number=order.number %}
+        Order {{ number }}: confirmation
+    {% endblocktrans %} | {{ block.super }}
+{% endblock title %}
+
+{% block checkout_nav %}
+    {#    {% include 'checkout/nav.html' with step=5 %}#}
+{% endblock %}
+
+{% block checkout_title %}
+    {% blocktrans with number=order.number %}
+        Order {{ number }}: confirmation
+    {% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="sub_bg">
+        <div class="sub_container">
+
+            <!-- navi -->
+            <div class="navi clfx">
+                <ul class="clfx">
+                    <li class="icon_home"><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+                    <li class="active">{% trans 'order' %}</li>
+                </ul>
+            </div>
+            <!-- //navi -->
+            <div class="preview">
+                <div class="checkout_step">
+                    <ol class="clfx">
+                        <li>
+                            <span>01</span>
+                            Shipping Adress
+                        </li>
+                        <li>
+                            <span>02</span>
+                            Payment Detail
+                        </li>
+                        <li>
+                            <span>03</span>
+                            Preview
+                        </li>
+                        <li  class="on">
+                            <span>04</span>
+                            Confirmation
+                        </li>
+                    </ol>
+                </div>
+                <div class="confirmation">
+
+                    {% blocktrans with number=order.number %}
+                        <p class="confirm_txt">    Your order was successful.
+                            <br/> Your order number is<br/>
+                            <span style="color:red"> {{ number }}</span></p>
+                    {% endblocktrans %}
+
+                    {#                  <span style="text-align: center; margin: auto">"Please make a note of this reference or print this page and quote it in any communication with us regarding your order."</span>#}
+                    {#                    <h1>Items placed in order</h1>#}
+                    {#                    <div class="confirm_tb">#}
+                    {#                        <table>#}
+                    {#                            <colgroup>#}
+                    {#                                <col style="width:210px;" />#}
+                    {#                                <col />#}
+                    {#                                <col style="width:10.5%;" />#}
+                    {#                                <col style="width:25.7%;" />#}
+                    {#                            </colgroup>#}
+                    {#                            <tbody>#}
+                    {#                            <tr>#}
+                    {#                                <td class="img_area"><a href="#"><img src="../images/cart_img.jpg" alt="" /></a></td>#}
+                    {#                                <td class="txt_l"><a href="#">Soft Towels</a></td>#}
+                    {#                                <td>3</td>#}
+                    {#                                <td class="price"><strong>15,000</strong> won</td>#}
+                    {#                            </tr>#}
+                    {#                            </tbody>#}
+                    {#                        </table>#}
+                    {#                    </div>#}
+
+                    {% block shipping_info %}
+                        <h1>{% trans "Shipping" %}</h1>
+
+                        <div class="confirm_txt_box">
+                            {% if order.shipping_address %}
+                                <address>
+                                    {% for field in order.shipping_address.active_address_fields %}
+                                        {{ field }}<br/>
+                                    {% endfor %}
+                                </address>
+
+                                {% if order.shipping_address.phone_number %}
+                                    <p>
+                                        {{ order.shipping_address.phone_number }}
+                                        {% if order.guest_email %}
+                                            <br/>{{ order.guest_email }}
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+
+                                {#{% if order.shipping_address.notes %}#}
+                                {#<p>{{ order.shipping_address.notes }}</p>#}
+                                {#{% endif %}#}
+
+                            {% else %}
+                                <p>{% trans "No shipping address required." %}</p>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+
+
+
+                    {% block payment_info %}
+                        <h1>{% trans "Payment" %}</h1>
+                        <div class="confirm_txt_box">
+
+                            {% for source in order.sources.all %}
+                                {% if source.reference %}#}
+                                    {% blocktrans with amount=source.amount_allocated|currency:source.currency type=source.source_type.name reference=source.reference %}
+                                        Allocation of {{ amount }} from type {{ type }} (reference: {{ reference }})
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% blocktrans with amount=source.amount_allocated|currency:source.currency type=source.source_type.name %}
+                                        Allocation of {{ amount }} from type {{ type }}
+                                    {% endblocktrans %}
+                                {% endif %}
+                                </p>
+                            {% empty %}
+                                <p>
+                                    {% trans "No payment was required for this order." %}
+                                </p>
+                            {% endfor %}
+                        </div>
+
+
+                    {% endblock %}
+
+
+                    {% block basket_totals %}
+
+                        <h1>{% trans 'Totals' %}</h1>
+                        <div class="confirm_total_tb">
+                            <table>
+                                <colgroup>
+                                    <col />
+                                    <col style="width:80px;" />
+                                    <col style="width:28.6%;" />
+                                </colgroup>
+                                <tfoot>
+                                <tr><td colspan="3"><hr/></td></tr>
+                                <tr>
+
+
+                                    {% block order_total %}
+
+
+                                        <th scope="row">{% trans "Order total" %}</th>
+                                        <td></td>
+                                        <td class="price txt_r"><strong>{{ order.total_incl_tax|currency:order.currency }}</strong> </td>
+                                    {% endblock order_total %}
+                                </tr>
+                                </tfoot>
+                                <tbody>
+
+
+
+                                {% for line in order.lines.all %}
+                                    <tr>
+                                        <td>
+                                            <div class="image_container">
+                                                {% with image=line.product.primary_image %}
+                                                    {% thumbnail image.original "200x200" upscale=False as thumb %}
+                                                        <a href="{{ line.product.get_absolute_url }}"><img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}"></a>
+                                                    {% endthumbnail %}
+                                                {% endwith %}
+                                                {{ line.description }}
+                                            </div>
+                                        </td>
+                                        <td class="txt_c"> {{ line.quantity }}</td>
+                                        <td class="txt_r price"> {% if show_tax_separately %}
+                                            {{ line.line_price_before_discounts_excl_tax|currency:order.currency }}
+                                        {% else %}
+                                            {{ line.line_price_before_discounts_incl_tax|currency:order.currency }}
+                                        {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td>
+                                        {% trans "Shipping charge" %}
+                                    </td>
+                                    <td></td>
+
+                                    <td class="price txt_r">{{ order.shipping_incl_tax | currency:order.currency   }}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="btn_area clfx">
+
+                            <a href="{{ homepage_url }}" class="basic-btn btn-gray f-l">Continue Shopping</a>
+                            <a href="{{ homepage_url }}" class="basic-btn btn-orange f-r">Home</a>
+                        </div>
+                        </div>
+                    {% endblock %}
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    </div>
+
+
+    {#    {% block order_tracking %}#}
+    {#        {% if not order.user %}#}
+    {#            <div class="sub-header">#}
+    {#                <h2>{% trans "Tracking your order" %}</h2>#}
+    {#            </div>#}
+    {#            <p>{% trans "You can track the status of your order" %}</p>#}
+    {#            <a class="btn btn-primary" href="{% url 'customer:anon-order' order_number=order.number hash=order.verification_hash %}">{% trans "View order status" %}</a>.#}
+    {#        {% endif %}#}
+    {#    {% endblock %}#}
+    {##}
+    {##}
+    {#    {% block order_actions %}#}
+    {#        <div class="form-group">#}
+    {#            <div class="row">#}
+    {#                <div class="col-sm-4">#}
+    {#                    <p><a onclick="window.print()" href="#" class="btn btn-primary btn-block btn-lg">{% trans "Print this page" %}</a></p>#}
+    {#                </div>#}
+    {#                <div class="col-sm-4 col-sm-offset-4">#}
+    {#                    <p><a href="{{ homepage_url }}" class="btn btn-primary btn-block btn-lg">{% trans "Continue shopping" %}</a></p>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    {% endblock order_actions %}#}
+{% endblock content %}
+
+{% block tracking %}
+    {% include "partials/google_analytics_transaction.html" %}
+{% endblock %}

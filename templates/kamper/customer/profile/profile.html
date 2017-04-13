@@ -1,0 +1,72 @@
+{% extends "customer/baseaccountpage.html" %}
+
+{% load i18n %}
+
+{% block tabcontent %}
+    <div class="sub_bg">
+        <div class="sub_container">
+            <div class="navi clfx">
+                <ul class="clfx">
+                    <li class="icon_home"><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+                    {#                    <li> <a href="{% url 'customer:summary' %}">{% trans 'Account' %}</a></li>#}
+                    <li> <a href="{% url 'customer:summary' %}">{% trans 'My Page' %}</a></li>
+
+                    <li class="active">{{ page_title }}</li>
+                </ul>
+            </div>
+
+            <div class="pt_95 clfx">
+                <div class="lnb_area">
+                    <h1 class="title">{% trans "My Page" %}</h1>
+                    <ul class="lnb">
+                        <li class="lnb_on"><a href="{% url 'customer:profile-view' %}">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url 'customer:order-list' %}">{% trans "Order history" %}</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="sub_cont">
+                    <div class="my_page">
+                        <table>
+                            <colgroup>
+                                <col style="width:28%;" />
+                                <col />
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row">{% trans 'Name' %}</th>
+                                <td>{{ user.get_full_name|default:'-' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Email address' %}</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+
+                            {% block profile_fields %}
+                                {% for field in profile_fields %}
+                                    <tr>
+                                        <th>{{ field.name }}</th>
+                                        <td>{{ field.value|default:"-" }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endblock %}
+                            <tr>
+                                <th scope="row">{% trans 'Date registered' %}</th>
+                                <td>{{ user.date_joined }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div>
+                            <button class="btn btn-default" style="border: 1px  solid #ff8860"> <a href="{% url 'customer:change-password' %}"style="color: #ff8860">{% trans 'Change password' %}</a></button>
+                            <button class="btn btn-default" style="border: 1px  solid #ff8860"> <a href="{% url 'customer:profile-update' %}" style="color: #ff8860">{% trans 'Edit profile' %}</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load i18n %}
+{% comment %}
+kamper 사용
+{% endcomment %}
+<div id="navbar-search">
+    <form class="navbar-form navbar-center" role="search" method="get" action="{% url 'search:search' %}">
+        <div class="navbar-left">
+            <div class="navbar-search-option">
+
+            </div>
+        </div>
+
+        <div class="navbar-right" style="margin-right: -15px;">
+            <input type="submit" value="{% trans "Search" %}" class="btn btn-default navbar-right-btn" />
+        </div>
+        <div class="navbar-form-center">
+            <div class="nav-search-field">
+                {{ search_form.q }}
+            </div>
+        </div>
+
+    </form>
+</div>
