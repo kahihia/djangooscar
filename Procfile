@@ -1,1 +1,1 @@
-web: gunicorn Bormaheco.wsgi
+web: gunicorn src.wsgi
