@@ -117,7 +117,7 @@ TEMPLATES = [
         'DIRS': [
            # os.path.join(BASE_DIR, 'templates/kamper'),
             # OSCAR_MAIN_TEMPLATE_DIR,
-             os.path.join(BASE_DIR, 'templates/oscar'),
+             os.path.join(BASE_DIR, 'templates/oscar_backup'),
         ]
         ,
         # 'APP_DIRS': True,
