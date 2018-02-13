@@ -115,9 +115,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
 
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates/kamper'),
+           # os.path.join(BASE_DIR, 'templates/kamper'),
             # OSCAR_MAIN_TEMPLATE_DIR,
-            # os.path.join(BASE_DIR, 'templates/oscar'),
+             os.path.join(BASE_DIR, 'templates/oscar'),
         ]
         ,
         # 'APP_DIRS': True,
