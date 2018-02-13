@@ -1,2 +1,1 @@
-import dj_database_url
 from src import development_settings
