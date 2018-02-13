@@ -23,14 +23,14 @@ PAYPAL_WEB_PROFILE = 'XP-UKG8-LXCW-FZD3-DCFU'
 # }
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'KAMPER',
-            'USER': 'kamperadmin',
-            'PASSWORD': "kamp12!!",
-            'HOST': "aa5ji7js1hf4fv.cqtstugh14sk.ap-northeast-2.rds.amazonaws.com",
-            'PORT': '3306',
-            'ATOMIC_REQUESTS': True,
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3'
+
     }
+}
+
+
+DATABASES['default'] =  dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
