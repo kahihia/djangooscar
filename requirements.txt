@@ -63,3 +63,8 @@ texttable==0.8.4
 Unidecode==0.4.19
 wcwidth==0.1.7
 websocket-client==0.37.0
+redis==2.10.5
+sendgrid-django==4.2.0
+sendgrid==3.6.5           # via sendgrid-django
+six==1.10.0
+whitenoise==3.3.0
